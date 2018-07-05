@@ -1,6 +1,12 @@
 package com.chuck.android.popularmovies_test.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(tableName = "movies")
+
 public class MovieTitle {
+    @PrimaryKey
     private Integer id;
 
     private String title;

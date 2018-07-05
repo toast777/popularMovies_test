@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">popularMovies_test</string>
+    <string name="Favorites_Checkbox">Add/Remove from Favorites</string>
 </resources>
