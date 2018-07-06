@@ -18,6 +18,7 @@ import com.chuck.android.popularmovies_test.adapter.MovieTitleAdapter;
 import com.chuck.android.popularmovies_test.models.MovieTitle;
 import com.chuck.android.popularmovies_test.utils.SampleData;
 import com.chuck.android.popularmovies_test.viewmodel.MainViewModel;
+import com.facebook.stetho.Stetho;
 
 
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MovieTitleAdapter(R.layout.movie_list_item, getApplicationContext());
         recyclerView.setAdapter(adapter);
         initViewModel();
+        Stetho.initializeWithDefaults(this);
+
         //List<MovieTitle> movies = SampleData.getMovies();
         //adapter.setMovies(movies);
 
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_sample_data) {
             addSampleData();
+
             return true;
         } else if (id == R.id.action_delete_all) {
             deleteAllNotes();
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addSampleData() {
-        mViewModel.addSampleData();
+        mViewModel.addMoreSampleData();
     }
-
+//TODO only have menu add more data
 }

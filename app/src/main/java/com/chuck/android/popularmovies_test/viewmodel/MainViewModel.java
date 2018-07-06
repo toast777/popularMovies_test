@@ -25,6 +25,10 @@ public class MainViewModel extends AndroidViewModel {
     public void addSampleData() {
         mRepository.addSampleData();
     }
+    public void addMoreSampleData(){
+        mRepository.addMoreSampleData();
+    }
+
 
     public void deleteAllNotes() {
         mRepository.deleteAllMovies();

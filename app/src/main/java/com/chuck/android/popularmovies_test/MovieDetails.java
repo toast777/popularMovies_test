@@ -16,21 +16,27 @@ import com.chuck.android.popularmovies_test.viewmodel.MovieDetailsViewModel;
 
 public class MovieDetails extends AppCompatActivity {
 
-    private ViewModel mViewModel;
+    private MovieDetailsViewModel mViewModel;
+    private MovieTitle mMovieTitle;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
+
+
         //Get Passed Extra ID from intent
         int id = getIntent().getIntExtra("EXTRA_MOVIE_ID",0);
         String title = getIntent().getStringExtra("EXTRA_MOVIE_TITLE");
         final TextView movieTitle = findViewById(R.id.movieTitle);
         final TextView movieID  = findViewById(R.id.movieID);
+        final CheckBox checkbox=(CheckBox)findViewById(R.id.ck_favorites);
+
+        initViewModel(id);
         movieID.setText(Integer.toString(id));
         movieTitle.setText(title);
-        final CheckBox checkbox=(CheckBox)findViewById(R.id.ck_favorites);
         checkbox.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -38,7 +44,8 @@ public class MovieDetails extends AppCompatActivity {
             {
                 if (checkbox.isChecked())
                 {
-                    Toast.makeText(getApplicationContext(),"Checkbox Selected",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Item Deleted",Toast.LENGTH_SHORT).show();
+                   mViewModel.deleteMovie();
                 }
                 else
                 {
@@ -47,16 +54,18 @@ public class MovieDetails extends AppCompatActivity {
             }
         });
     }
-
-    private void initViewModel() {
-        final Observer<MovieTitle> movieTitleObserver = new Observer<MovieTitle>() {
-            @Override
-            public void onChanged(@Nullable MovieTitle movieTitle) {
-
-            }
-        };
+    private void initViewModel(final int id) {
         mViewModel = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
-        mViewModel.mMovieTitle
+
+//        mViewModel.mLiveMovie.observe(this, new Observer<MovieTitle>() {
+//            @Override
+//            public void onChanged(@Nullable MovieTitle movieTitle) {
+//            }
+//        });
+        mViewModel.loadData(id);
+
+
     }
 
-}
+
+    }
