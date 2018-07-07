@@ -89,9 +89,16 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_delete_all) {
             deleteAllNotes();
             return true;
+        }else if (id==R.id.add_old_sample_Data){
+            addOldSampleData();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addOldSampleData() {
+        mViewModel.addSampleData();
+
     }
 
     private void deleteAllNotes() {

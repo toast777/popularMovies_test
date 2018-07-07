@@ -18,6 +18,8 @@ public class MovieDetails extends AppCompatActivity {
 
     private MovieDetailsViewModel mViewModel;
     private MovieTitle mMovieTitle;
+    private boolean favorite;
+    TextView movieTitle;
 
 
 
@@ -30,13 +32,12 @@ public class MovieDetails extends AppCompatActivity {
         //Get Passed Extra ID from intent
         int id = getIntent().getIntExtra("EXTRA_MOVIE_ID",0);
         String title = getIntent().getStringExtra("EXTRA_MOVIE_TITLE");
-        final TextView movieTitle = findViewById(R.id.movieTitle);
+        movieTitle = findViewById(R.id.movieTitle);
         final TextView movieID  = findViewById(R.id.movieID);
         final CheckBox checkbox=(CheckBox)findViewById(R.id.ck_favorites);
 
         initViewModel(id);
         movieID.setText(Integer.toString(id));
-        movieTitle.setText(title);
         checkbox.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -57,11 +58,12 @@ public class MovieDetails extends AppCompatActivity {
     private void initViewModel(final int id) {
         mViewModel = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
 
-//        mViewModel.mLiveMovie.observe(this, new Observer<MovieTitle>() {
-//            @Override
-//            public void onChanged(@Nullable MovieTitle movieTitle) {
-//            }
-//        });
+        mViewModel.mLiveMovie.observe(this, new Observer<MovieTitle>() {
+            @Override
+            public void onChanged(@Nullable MovieTitle movieTitleObject) {
+                movieTitle.setText(movieTitleObject.getTitle());
+            }
+        });
         mViewModel.loadData(id);
 
 

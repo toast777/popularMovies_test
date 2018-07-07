@@ -12,4 +12,9 @@
         android:orderInCategory="101"
         android:title="Delete All"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/add_old_sample_Data"
+        android:orderInCategory="101"
+        android:title="Add Old Sample Data"
+        app:showAsAction="never" />
 </menu>

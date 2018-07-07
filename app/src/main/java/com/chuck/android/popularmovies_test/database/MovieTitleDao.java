@@ -22,7 +22,7 @@ public interface MovieTitleDao {
     void deleteMovie(MovieTitle movieTitle);
 
     @Query("SELECT * FROM movies WHERE id = :id")
-    MovieTitle getID(int id);
+    MovieTitle getMovieByID(int id);
 
     @Query("SELECT * FROM movies")
     LiveData<List<MovieTitle>> getAll();

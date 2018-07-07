@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SampleDataMore {
-    private static final String SAMPLE_TITLE_1 = "Jumanji";
-    private static final String SAMPLE_TITLE_2 = "Ghostbusters";
-    private static final String SAMPLE_TITLE_3 = "Avengers";
+    private static final String SAMPLE_TITLE_1 = "Polyanna";
+    private static final String SAMPLE_TITLE_2 = "Sweet 16";
+    private static final String SAMPLE_TITLE_3 = "Folly in the Finest";
 
 
     private static final int SAMPLE_ID_1 = 121221;

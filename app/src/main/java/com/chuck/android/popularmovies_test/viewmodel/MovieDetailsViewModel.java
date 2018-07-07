@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
     //TODO query movie db for movie title
-    public MutableLiveData<MovieTitle> mLiveMovie;
+    public MutableLiveData<MovieTitle> mLiveMovie =  new MutableLiveData<>();
     private AppRepository mRepository;
     private Executor executor = Executors.newSingleThreadExecutor();
 

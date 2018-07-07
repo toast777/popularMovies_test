@@ -16,6 +16,7 @@ public class AppRepository {
     private static AppRepository ourInstance;
 
     public LiveData<List<MovieTitle>> mMovies;
+    //public LiveData<List<MovieTitle>> staticMovies;
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -52,6 +53,7 @@ public class AppRepository {
         return mDb.movieDao().getAll();
     }
 
+
     public void deleteAllMovies() {
         executor.execute(new Runnable() {
             @Override
@@ -61,7 +63,7 @@ public class AppRepository {
         });
     }
     public MovieTitle getMovieById(int movieID) {
-        return mDb.movieDao().getID(movieID);
+        return mDb.movieDao().getMovieByID(movieID);
     }
 
     public void insertMovie(final MovieTitle movie) {
