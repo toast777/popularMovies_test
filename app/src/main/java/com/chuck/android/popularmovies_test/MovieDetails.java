@@ -18,9 +18,8 @@ public class MovieDetails extends AppCompatActivity {
 
     private MovieDetailsViewModel mViewModel;
     private MovieTitle mMovieTitle;
-    private boolean favorite;
     TextView movieTitle;
-
+    CheckBox checkbox;
 
 
     @Override
@@ -30,14 +29,18 @@ public class MovieDetails extends AppCompatActivity {
 
 
         //Get Passed Extra ID from intent
-        int id = getIntent().getIntExtra("EXTRA_MOVIE_ID",0);
-        String title = getIntent().getStringExtra("EXTRA_MOVIE_TITLE");
+        final int id = getIntent().getIntExtra("EXTRA_MOVIE_ID",0);
+        final String title = getIntent().getStringExtra("EXTRA_MOVIE_TITLE");
         movieTitle = findViewById(R.id.movieTitle);
+        movieTitle.setText(title);
         final TextView movieID  = findViewById(R.id.movieID);
-        final CheckBox checkbox=(CheckBox)findViewById(R.id.ck_favorites);
-
+        checkbox= findViewById(R.id.ck_favorites);
         initViewModel(id);
         movieID.setText(Integer.toString(id));
+
+       // movieID.setText(Integer.toString(mMovieTitle.getId()));
+
+ //       if (mMovieTitle.getId() == 0)
         checkbox.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -45,26 +48,35 @@ public class MovieDetails extends AppCompatActivity {
             {
                 if (checkbox.isChecked())
                 {
-                    Toast.makeText(getApplicationContext(),"Item Deleted",Toast.LENGTH_SHORT).show();
-                   mViewModel.deleteMovie();
+                    Toast.makeText(getApplicationContext(),"Item Added",Toast.LENGTH_SHORT).show();
+                    mViewModel.addMovie(id,title);
+
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Checkbox De-Selected",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Item Deleted",Toast.LENGTH_SHORT).show();
+                    mViewModel.deleteMovie();
+
                 }
             }
         });
     }
     private void initViewModel(final int id) {
+
         mViewModel = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
 
         mViewModel.mLiveMovie.observe(this, new Observer<MovieTitle>() {
             @Override
             public void onChanged(@Nullable MovieTitle movieTitleObject) {
-                movieTitle.setText(movieTitleObject.getTitle());
+                if (movieTitleObject != null)
+                    checkbox.setChecked(true);
+
             }
         });
         mViewModel.loadData(id);
+
+
+
 
 
     }

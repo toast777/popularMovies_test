@@ -15,8 +15,8 @@ public class AppRepository {
 
     private static AppRepository ourInstance;
 
-    public LiveData<List<MovieTitle>> mMovies;
-    //public LiveData<List<MovieTitle>> staticMovies;
+    public LiveData<List<MovieTitle>> favoriteMovies;
+    public LiveData<List<MovieTitle>> staticMovies;
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -29,7 +29,7 @@ public class AppRepository {
 
     private AppRepository(Context context) {
         mDb = AppDatabase.getInstance(context);
-        mMovies = getAllMovies();
+        favoriteMovies = getAllMovies();
     }
 
     public void addSampleData() {
@@ -41,12 +41,6 @@ public class AppRepository {
         });
     }
     public void addMoreSampleData() {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mDb.movieDao().insertAll(SampleDataMore.getMovies());
-            }
-        });
     }
 
     private LiveData<List<MovieTitle>> getAllMovies() {

@@ -31,13 +31,15 @@ public class MovieDetailsViewModel extends AndroidViewModel {
                 mLiveMovie.postValue(movie);
             }
         });
+
     }
 
     public void deleteMovie() {
         mRepository.deleteMovie(mLiveMovie.getValue());
     }
-    public void addMovie(){
-        mRepository.insertMovie(mLiveMovie.getValue());
+    public void addMovie(int id, String Title){
+        MovieTitle newMovie = new MovieTitle(id,Title);
+        mRepository.insertMovie(newMovie);
     }
 
 }

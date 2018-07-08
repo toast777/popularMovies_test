@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private MovieTitleAdapter adapter;
     LinearLayoutManager movieGridLayoutManger;
     private List<MovieTitle> moviesData = new ArrayList<>();
+    private List<MovieTitle> sampleMoviesData = new ArrayList<>();
+
     private MainViewModel mViewModel;
 
 
@@ -40,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.movieDbList);
-        Toolbar toolbar = findViewById(R.id.toolbar);
         movieGridLayoutManger = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(movieGridLayoutManger);
         adapter = new MovieTitleAdapter(R.layout.movie_list_item, getApplicationContext());
@@ -63,9 +64,19 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setMovies(moviesData);
             }
         };
+        final Observer<List<MovieTitle>> sampleMovieObserver = new Observer<List<MovieTitle>>() {
+            @Override
+            public void onChanged(@Nullable List<MovieTitle> movieTitles) {
+                sampleMoviesData.clear();
+                sampleMoviesData.addAll(movieTitles);
+            }
+        };
         mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
-        mViewModel.mMovies.observe(this, movieObserver);
+        mViewModel.favoriteMovies.observe(this, movieObserver);
+        //mViewModel.addMoreSampleData();
+        mViewModel.sampleMovies.observe(this, sampleMovieObserver);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,31 +93,32 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add_sample_data) {
-            addSampleData();
-
-            return true;
-        } else if (id == R.id.action_delete_all) {
+        if (id == R.id.action_delete_all) {
             deleteAllNotes();
-            return true;
-        }else if (id==R.id.add_old_sample_Data){
+            return true; }
+        else if (id==R.id.add_old_sample_Data){
             addOldSampleData();
-        }
+            return true; }
+        else if (id==R.id.view_favorite_movies) {
+            adapter.setMovies(moviesData);
+
+            return true; }
+        else if (id==R.id.view_sample_movies) {
+//            mViewModel.addMoreSampleData();
+            adapter.setMovies(sampleMoviesData);
+            return true; }
 
         return super.onOptionsItemSelected(item);
     }
 
     private void addOldSampleData() {
         mViewModel.addSampleData();
-
     }
 
     private void deleteAllNotes() {
         mViewModel.deleteAllNotes();
     }
 
-    private void addSampleData() {
-        mViewModel.addMoreSampleData();
-    }
+
 //TODO only have menu add more data
 }
